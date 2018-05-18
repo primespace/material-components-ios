@@ -11,8 +11,8 @@
 // The Bundle for string resources.
 static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
 
-static const UIEdgeInsets MDCDialogContentInsets = {24.0, 24.0, 24.0, 24.0};
-static const CGFloat MDCDialogContentVerticalPadding = 20.0;
+static const UIEdgeInsets MDCDialogContentInsets = {0, 0, 0, 0};
+static const CGFloat MDCDialogContentVerticalPadding = 0;
 
 static const UIEdgeInsets MDCDialogActionsInsets = {8.0, 8.0, 8.0, 8.0};
 static const CGFloat MDCDialogActionsHorizontalPadding = 8.0;
