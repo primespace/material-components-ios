@@ -141,5 +141,7 @@ typedef void (^MDCActionHandler)(MDCAlertAction *_Nonnull action);
 @property(nonatomic, nullable, readonly) NSString *title;
 
 // TODO(iangordon): Add support for enabled property to match UIAlertAction
+    
+@property(nonatomic, nullable, copy) MDCActionHandler completionHandler;
 
 @end

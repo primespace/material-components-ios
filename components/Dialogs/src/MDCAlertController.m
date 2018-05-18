@@ -28,7 +28,7 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
 
 @interface MDCAlertAction ()
 
-@property(nonatomic, nullable, copy) MDCActionHandler completionHandler;
+
 
 @end
 
@@ -121,6 +121,9 @@ static const CGFloat MDCDialogMessageOpacity = 0.54f;
     _actionButtons = [[NSMutableArray alloc] init];
 
     _transitionController = [[MDCDialogTransitionController alloc] init];
+      // typark
+      [_transitionController setDismissOnBackgroundTap: NO];
+      
     super.transitioningDelegate = _transitionController;
     super.modalPresentationStyle = UIModalPresentationCustom;
   }

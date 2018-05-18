@@ -40,4 +40,6 @@
 @interface MDCDialogTransitionController
     : NSObject <UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate>
 
+- (void)setDismissOnBackgroundTap:(BOOL)dismissOnBackgroundTap;
+
 @end

@@ -18,11 +18,27 @@
 
 #import "MDCDialogPresentationController.h"
 
-@implementation MDCDialogTransitionController
+
+@implementation MDCDialogTransitionController {
+    
+    BOOL _dismissOnBackgroundTap;
+}
 
 static const NSTimeInterval MDCDialogTransitionDuration = 0.27;
 
 #pragma mark - UIViewControllerAnimatedTransitioning
+
+- (id) init {
+    self = [super init];
+    if(self) {
+        _dismissOnBackgroundTap = YES;
+    }
+    return self;
+}
+
+- (void)setDismissOnBackgroundTap:(BOOL)dismissOnBackgroundTap {
+    _dismissOnBackgroundTap = dismissOnBackgroundTap;
+}
 
 - (NSTimeInterval)transitionDuration:
     (__unused id<UIViewControllerContextTransitioning>)transitionContext {
@@ -94,8 +110,12 @@ static const NSTimeInterval MDCDialogTransitionDuration = 0.27;
     presentationControllerForPresentedViewController:(UIViewController *)presented
                             presentingViewController:(UIViewController *)presenting
                                 sourceViewController:(__unused UIViewController *)source {
-  return [[MDCDialogPresentationController alloc] initWithPresentedViewController:presented
+    
+    
+    MDCDialogPresentationController *controller = [[MDCDialogPresentationController alloc] initWithPresentedViewController:presented
                                                          presentingViewController:presenting];
+    [controller setDismissOnBackgroundTap:_dismissOnBackgroundTap];
+    return controller;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)
