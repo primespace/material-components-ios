@@ -11,8 +11,8 @@
 // The Bundle for string resources.
 static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
 
-static const UIEdgeInsets MDCDialogContentInsets = {0, 0, 0, 0};
-static const CGFloat MDCDialogContentVerticalPadding = 0;
+static const UIEdgeInsets MDCDialogContentInsets = {24.0, 24.0, 24.0, 24.0};
+static const CGFloat MDCDialogContentVerticalPadding = 20.0;
 
 static const UIEdgeInsets MDCDialogActionsInsets = {8.0, 8.0, 8.0, 8.0};
 static const CGFloat MDCDialogActionsHorizontalPadding = 8.0;
@@ -328,7 +328,12 @@ static const CGFloat MDCDialogMessageOpacity = 0.54f;
 //    CGSize customSize = [self.customView sizeThatFits:boundsSize];
     CGSize customSize = CGSizeZero;
     customSize.height = _customViewHeight;
-    customSize.width = boundsSize.width;
+    
+    if( titleSize.height > 0 ) {
+        customSize.width = boundsSize.width;
+    } else {
+        customSize.width = boundsSize.width + MDCDialogContentInsets.left + MDCDialogContentInsets.right;
+    }
     
     boundsSize.width = boundsSize.width + MDCDialogContentInsets.left + MDCDialogContentInsets.right;
     
@@ -337,10 +342,14 @@ static const CGFloat MDCDialogMessageOpacity = 0.54f;
         contentInternalVerticalPadding = MDCDialogContentVerticalPadding;
     }
     
-    CGRect titleFrame = CGRectMake(MDCDialogContentInsets.left, MDCDialogContentInsets.top,
+    
+    CGRect titleFrame = CGRectMake(MDCDialogContentInsets.left,
+                                   titleSize.height > 0 ? MDCDialogContentInsets.top: 0,
                                    titleSize.width, titleSize.height);
-    CGRect customFrame = CGRectMake(MDCDialogContentInsets.left,
-                                     CGRectGetMaxY(titleFrame) + contentInternalVerticalPadding,
+    
+    
+    CGRect customFrame = CGRectMake(titleSize.height > 0 ? MDCDialogContentInsets.left: 0,
+                                     CGRectGetMaxY(titleFrame) + (titleSize.height > 0 ? MDCDialogContentInsets.top: 0),
                                      customSize.width, customSize.height);
     
     self.titleLabel.frame = titleFrame;
@@ -469,9 +478,12 @@ static const CGFloat MDCDialogMessageOpacity = 0.54f;
     
     CGSize contentSize = CGSizeZero;
     contentSize.width = boundingWidth;
-    contentSize.height = titleSize.height;
-    contentSize.height += MDCDialogContentInsets.top;
-    contentSize.height += MDCDialogContentVerticalPadding;
+    if(titleSize.height > 0) {
+        contentSize.height = titleSize.height;
+        contentSize.height += MDCDialogContentInsets.top;
+        contentSize.height += MDCDialogContentVerticalPadding;
+    }
+    
     contentSize.height += _customViewHeight;
         
     return contentSize;
